@@ -440,7 +440,7 @@ function objective(){
    return {type:'npc', map:'nagoya', x:16, y:8, label:'이번 여행의 진짜 목적, 말랑이 만나기'};
  }
  if(!(f.homeCook&&f.homeStudy&&f.coffee)){
-   if(state.map==='nagoya') return {type:'warp', map:'nagoya', x:18, y:11, label:'오른쪽 출구로 가서 집으로 이동'};
+   if(state.map==='nagoya') return {type:'warp', map:'nagoya', x:18, y:6, label:'오른쪽 출구로 가서 집으로 이동'};
    if(!f.homeCook) return {type:'tile', map:'home', x:5, y:2, label:'주방에서 같이 저녁 만들기'};
    if(!f.homeStudy) return {type:'tile', map:'home', x:12, y:2, label:'큰 테이블에서 같이 공부하기'};
    return {type:'tile', map:'home', x:15, y:9, label:'커피 코너에서 커피 내리기'};

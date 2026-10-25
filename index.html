@@ -956,6 +956,71 @@ function drawBench(px,py){
  ctx.fillRect(px+8,py+21,3,7);ctx.fillRect(px+21,py+21,3,7);
 }
 
+function drawParkDetails(){
+ if(state.map!=='park') return;
+
+ // winding stone paths / edging
+ ctx.fillStyle='#cbb77e';
+ ctx.fillRect(0,3*T+10,20*T,5);
+ ctx.fillRect(11*T,8*T+11,9*T,4);
+ ctx.fillStyle='#eadfb9';
+ for(let x=1;x<19;x+=2) ctx.fillRect(x*T+8,3*T+8,10,2);
+ for(let x=12;x<19;x+=2) ctx.fillRect(x*T+6,8*T+9,12,2);
+
+ // small pond in lower-left lawn
+ ctx.fillStyle='#4f9db3';ctx.fillRect(2*T+5,9*T+5,78,48);
+ ctx.fillStyle='#77bfd0';ctx.fillRect(2*T+9,9*T+9,70,40);
+ ctx.fillStyle='#a6dce7';ctx.fillRect(2*T+15,9*T+14,18,3);
+ ctx.fillRect(3*T+18,10*T+16,14,3);
+ ctx.fillStyle='#5e8f4d';ctx.fillRect(2*T+7,10*T+19,8,4);
+ ctx.fillRect(4*T+10,9*T+25,8,4);
+
+ // flower beds
+ const flowers=[[13,2],[14,2],[15,2],[16,2],[12,6],[13,6],[14,6],[15,6],[16,6]];
+ for(const [x,y] of flowers){
+   const px=x*T,py=y*T;
+   ctx.fillStyle='#4d7d3d';ctx.fillRect(px+5,py+20,22,6);
+   ctx.fillStyle='#ffd85d';ctx.fillRect(px+8,py+14,4,4);
+   ctx.fillStyle='#f08aa5';ctx.fillRect(px+15,py+11,4,4);
+   ctx.fillStyle='#f7f0d0';ctx.fillRect(px+22,py+15,4,4);
+ }
+
+ // shrubs and grass tufts
+ const shrubs=[[1,4],[2,6],[16,4],[17,6],[10,10],[15,12],[6,12]];
+ for(const [x,y] of shrubs){
+   const px=x*T,py=y*T;
+   ctx.fillStyle='#3e7c3c';ctx.fillRect(px+5,py+15,22,10);
+   ctx.fillStyle='#5aa251';ctx.fillRect(px+9,py+11,14,8);
+ }
+ const grass=[[3,2],[8,1],[11,5],[17,9],[8,11],[12,12],[1,8],[9,8]];
+ ctx.fillStyle='#467e3e';
+ for(const [x,y] of grass){
+   const px=x*T,py=y*T;
+   ctx.fillRect(px+7,py+21,2,7);ctx.fillRect(px+12,py+18,2,10);ctx.fillRect(px+17,py+22,2,6);
+ }
+
+ // park lamps
+ for(const [x,y] of [[1,2],[18,3],[11,7],[17,11]]){
+   const px=x*T,py=y*T;
+   ctx.fillStyle='#434343';ctx.fillRect(px+15,py+8,3,18);
+   ctx.fillStyle='#f6e6a8';ctx.fillRect(px+11,py+5,11,6);
+   ctx.fillStyle='#8b7a4f';ctx.fillRect(px+12,py+6,9,4);
+ }
+
+ // bins / little park fixtures
+ for(const [x,y] of [[8,5],[14,10]]){
+   const px=x*T,py=y*T;
+   ctx.fillStyle='#4d6265';ctx.fillRect(px+9,py+13,14,14);
+   ctx.fillStyle='#7f9698';ctx.fillRect(px+8,py+11,16,4);
+ }
+
+ // small stepping-stone cluster near pond
+ ctx.fillStyle='#b7ab8d';
+ for(const [x,y] of [[6,10],[7,10],[7,11]]){
+   ctx.fillRect(x*T+8,y*T+12,16,7);
+ }
+}
+
 function drawKakao(px,py,main=false){
  ctx.fillStyle='#f1df3a';ctx.fillRect(px+2,py+3,28,26);
  ctx.fillStyle='#252525';ctx.fillRect(px+6,py+8,20,4);
@@ -1400,6 +1465,7 @@ function draw(){
 
  const m=current();
  for(let y=0;y<H;y++) for(let x=0;x<W;x++) drawTile(x,y,m.tiles[y][x]);
+ if(state.map==='park') drawParkDetails();
  if(state.map==='home') drawHomeRug();
  for(const n of m.npcs) drawNpc(n);
  if(state.starter) drawMonster(state.starter,state.partner.x*T,state.partner.y*T,1);

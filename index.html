@@ -106,17 +106,17 @@ canvas{
   font-size:17px;
 }
 #guide{
-  position:fixed;
-  top:max(6px,env(safe-area-inset-top));
-  left:50%;
-  transform:translateX(-50%);
-  z-index:50;
-  background:#000a;
+  position:static;
+  flex:0 0 auto;
+  align-self:center;
+  margin:6px auto 2px;
+  background:#151518;
   color:#fff;
-  padding:5px 8px;
+  padding:5px 10px;
   border:1px solid #666;
   border-radius:6px;
   font-size:10px;
+  line-height:1.2;
   pointer-events:none;
   white-space:nowrap;
 }
@@ -417,8 +417,7 @@ function objective(){
    if(state.map==='park') return {type:'warp', map:'park', x:18, y:12, label:'오른쪽 출구로 가서 신촌으로 이동'};
    if(!f.sinchonDrink) return {type:'tile', map:'sinchon', x:4, y:10, label:'주말 낮, 일단 낮술부터 시작하기'};
    if(!f.sinchonYonsei) return {type:'tile', map:'sinchon', x:4, y:2, label:'취한 김에 연세대학교 구경하기'};
-   if(!f.sinchonStatue) return {type:'tile', map:'sinchon', x:6, y:4, label:'연세대 동상 괜히 조사하기'};
-   if(!f.sinchonSteps) return {type:'tile', map:'sinchon', x:6, y:5, label:'계단도 괜히 올라가 보기'};
+   if(!f.sinchonStatue) return {type:'tile', map:'sinchon', x:6, y:4, label:'연세대 동상 구경하기'};
    return {type:'tile', map:'sinchon', x:12, y:2, label:'이제 LP바 찾아가기'};
  }
  if(!f.hongkongDone){
@@ -494,8 +493,8 @@ function isInteractableTileForMap(mapName,ch){
  const sets={
    office:['C','c'],
    park:['b'],
-   sinchon:['R','Y','s','g','L','l'],
-   home:['K','D','C'],
+   sinchon:['R','Y','s','L','l'],
+   home:['K','d','C'],
    hongkong:['D','E','B','X','V','v'],
    nagoya:['M','H','T','W','w']
  };
@@ -592,21 +591,9 @@ function interactTileAt(x,y){
    } else show('동상','여전히 누군지는 잘 모르겠다.');
    return true;
  }
- if(state.map==='sinchon' && t==='g'){
-   if(!state.flags.sinchonStatue){
-     show('시스템','저 동상부터 괜히 한번 보고 가자.');
-   } else if(!state.flags.sinchonSteps){
-     state.flags.sinchonSteps=true;
-     queue([
-       ['계단','무슨 건물인지는 모르겠지만 일단 올라가 봤다.'],
-       ['시스템','생각보다 연세대는 넓었다.']
-     ]);
-   } else show('계단','굳이 또 올라갈 필요는 없을 것 같다.');
-   return true;
- }
  if(state.map==='sinchon' && (t==='L'||t==='l')){
-   if(!(state.flags.sinchonDrink&&state.flags.sinchonYonsei&&state.flags.sinchonStatue&&state.flags.sinchonSteps)){
-     show('시스템','연세대 구경을 조금만 더 하고 LP바를 찾자.');
+   if(!(state.flags.sinchonDrink&&state.flags.sinchonYonsei&&state.flags.sinchonStatue)){
+     show('시스템','동상을 구경하고 LP바를 찾자.');
    } else {
      talk({name:'LP바 사장',kind:'lp'});
    }
@@ -625,7 +612,7 @@ function interactTileAt(x,y){
    } else show('주방','오늘 먹을 건 이미 충분하다.');
    return true;
  }
- if(state.map==='home' && t==='D'){
+ if(state.map==='home' && t==='d'){
    if(!state.flags.homeCook){ show('시스템','저녁부터 같이 만들어 먹자.'); return true; }
    if(!state.flags.homeStudy){
      state.flags.homeStudy=true;
@@ -830,7 +817,7 @@ function talk(n){
      state.flags.sinchonDone=true;
      addItem('신촌 LP바');
      queue([
-       ['시스템','골목을 조금 헤매다 LP바를 찾았다!'],
+       ['시스템','LP바를 찾았다!'],
        ['LP바 사장','한 장 골라봐. 지금 듣고 싶은 걸로.'],
        ['시스템','사실 음악보다 수다가 더 길었다.'],
        ['시스템','분명 낮에 만났다.'],

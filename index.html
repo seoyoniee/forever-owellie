@@ -1383,18 +1383,6 @@ function drawTransition(){
 }
 
 
-function drawEndingPrompt(){
- if(state.map!=='ending' || state.dialogue || state.mode!=='play') return;
- ctx.save();
- ctx.fillStyle='rgba(0,0,0,0.58)';
- ctx.fillRect(170,410,300,42);
- ctx.fillStyle='#fff';
- ctx.font='bold 15px monospace';
- ctx.textAlign='center';
- ctx.fillText('서연에게 다가가거나 Space를 눌러보자',320,436);
- ctx.restore();
-}
-
 function drawEnd(){
  ctx.fillStyle='#111826';ctx.fillRect(0,0,640,480);
  ctx.fillStyle='#f7f1d5';ctx.textAlign='center';
@@ -1427,7 +1415,6 @@ function draw(){
  }
  if(!state.suppressUI) drawUI();
  if(state.suppressUI && state.dialogue) drawDialogueOnly();
- drawEndingPrompt();
 
 }
 

@@ -292,23 +292,23 @@ const maps={
   palette:{ground:'#97c4c8', path:'#dbe7e8', border:'#7aa5ad'},
   tiles:[
   "####################",
-  "#..M....H....T.....#",
   "#..................#",
-  "#....aaaa..........#",
-  "#....aAAa..........#",
-  "#....aaaa..........#",
-  "#.........wwww.....#",
-  "#.........w..w.....#",
-  "#.........wWWw.....#",
-  "#....N.............#",
-  "#...........N......#",
-  "#.................=#",
+  "#..................#",
+  "#..........aaaaaa..#",
+  "#..........aAAAAa..#",
+  "#..........aaaaaa..#",
+  "#.............wwww=#",
+  "#.............w..w.#",
+  "#.............wWWw.#",
+  "#..................#",
+  "#..M...H...T...C...#",
+  "#..................#",
   "#..................#",
   "#..................#",
   "####################"],
   npcs:[
-   {x:5,y:9,name:'수족관 직원',kind:'aquarium'},
-   {x:12,y:10,name:'말랑이',kind:'otter'}
+   {x:12,y:7,name:'수족관 직원',kind:'aquarium'},
+   {x:16,y:8,name:'말랑이',kind:'otter'}
   ]
  },
  ending:{
@@ -353,9 +353,9 @@ const state={
  hearts:[],
  flags:{
   beer:false, parkDone:false,
-  sinchonDrink:false, sinchonYonsei:false, sinchonStatue:false, sinchonSteps:false, sinchonDone:false,
+  sinchonDrink:false, sinchonYonsei:false, sinchonStatue:false, sinchonDone:false,
   homeCook:false, homeStudy:false, coffee:false,
-  hkDimsum:false, hkEgg:false, hkBus:false, hkWrongStop:false, hongkongDone:false, nagoyaMiso:false, nagoyaHitsu:false, nagoyaTeba:false, nagoyaDone:false
+  hkDimsum:false, hkEgg:false, hkBus:false, hkWrongStop:false, hongkongDone:false, nagoyaMiso:false, nagoyaHitsu:false, nagoyaTeba:false, nagoyaHarbs:false, nagoyaDone:false
  },
  items:[],
  endingLine:0
@@ -427,16 +427,17 @@ function objective(){
    if(state.map==='sinchon') return {type:'warp', map:'sinchon', x:18, y:11, label:'오른쪽 출구로 가서 홍콩으로 이동'};
    if(!f.hkDimsum) return {type:'tile', map:'hongkong', x:2, y:2, label:'홍콩에 왔으니 딤섬부터 먹기'};
    if(!f.hkEgg) return {type:'tile', map:'hongkong', x:13, y:2, label:'에그타르트 찾으러 가기'};
-   if(!f.hkBus) return {type:'tile', map:'hongkong', x:14, y:5, label:'버스를 타고 다음 장소로 이동하기'};
-   if(!f.hkWrongStop) return {type:'tile', map:'hongkong', x:3, y:7, label:'반대 방향에서 내려 얼렁뚱땅 동네 구경하기'};
-   return {type:'tile', map:'hongkong', x:4, y:10, label:'마지막으로 홍콩 야경 보기'};
+   if(!f.hkBus) return {type:'tile', map:'hongkong', x:14, y:5, label:'빅토리아 하버로 가는 버스 타기'};
+   if(!f.hkWrongStop) return {type:'tile', map:'hongkong', x:3, y:7, label:'반대 방향인 걸 알아채고 내려보기'};
+   return {type:'tile', map:'hongkong', x:4, y:10, label:'이번엔 제대로 빅토리아 하버 가기'};
  }
  if(!f.nagoyaDone){
    if(state.map==='hongkong') return {type:'warp', map:'hongkong', x:18, y:11, label:'오른쪽 출구로 가서 나고야로 이동'};
-   if(!f.nagoyaMiso) return {type:'tile', map:'nagoya', x:3, y:1, label:'미소카츠 먹기'};
-   if(!f.nagoyaHitsu) return {type:'tile', map:'nagoya', x:8, y:1, label:'히츠마부시 먹기'};
-   if(!f.nagoyaTeba) return {type:'tile', map:'nagoya', x:13, y:1, label:'테바사키 먹기'};
-   return {type:'npc', map:'nagoya', x:12, y:10, label:'이번 여행의 진짜 목적, 말랑이 만나기'};
+   if(!f.nagoyaMiso) return {type:'tile', map:'nagoya', x:3, y:10, label:'미소카츠 먹기'};
+   if(!f.nagoyaHitsu) return {type:'tile', map:'nagoya', x:7, y:10, label:'히츠마부시 먹기'};
+   if(!f.nagoyaTeba) return {type:'tile', map:'nagoya', x:11, y:10, label:'테바사키 먹기'};
+   if(!f.nagoyaHarbs) return {type:'tile', map:'nagoya', x:15, y:10, label:'하브스 케이크 먹기'};
+   return {type:'npc', map:'nagoya', x:16, y:8, label:'이번 여행의 진짜 목적, 말랑이 만나기'};
  }
  if(!(f.homeCook&&f.homeStudy&&f.coffee)){
    if(state.map==='nagoya') return {type:'warp', map:'nagoya', x:18, y:11, label:'오른쪽 출구로 가서 집으로 이동'};
@@ -482,7 +483,7 @@ function checkWarp(){
    startTransition('첫 해외여행, 홍콩','hongkong',2,12,2,13);
  } else if(state.map==='hongkong'){
    if(!f.hongkongDone){show('시스템','홍콩에서 아직 할 일이 남아 있다.');return}
-   startTransition('해달을 보러, 나고야','nagoya',14,11,14,12);
+   startTransition('해달을 보러, 나고야','nagoya',2,12,2,13);
  } else if(state.map==='nagoya'){
    if(!f.nagoyaDone){show('시스템','말랑이를 먼저 만나자.');return}
    startTransition('그리고 다시, 집','home',13,11,13,12);
@@ -499,7 +500,7 @@ function isInteractableTileForMap(mapName,ch){
    sinchon:['R','Y','s','L','l'],
    home:['K','d','C'],
    hongkong:['D','E','B','X','V','v'],
-   nagoya:['M','H','T','W','w']
+   nagoya:['M','H','T','C','W','w']
  };
  return (sets[mapName]||[]).includes(ch);
 }
@@ -588,8 +589,7 @@ function interactTileAt(x,y){
    } else if(!state.flags.sinchonStatue){
      state.flags.sinchonStatue=true;
      queue([
-       ['동상','누군지는 잘 모르겠지만 일단 구경했다.'],
-       ['시스템','취한 관광객의 자신감 +1']
+       ['동상','누군지는 잘 모르겠지만 일단 구경했다.']
      ]);
    } else show('동상','여전히 누군지는 잘 모르겠다.');
    return true;
@@ -676,12 +676,12 @@ function interactTileAt(x,y){
    if(!state.flags.hkBus){
      state.flags.hkBus=true;
      queue([
-       ['버스','다음 장소로 이동합니다.'],
-       ['시스템','...'],
-       ['시스템','뭔가 이상하다.'],
-       ['시스템','지도 속 목적지가 점점 멀어지고 있다.'],
-       ['선택지','계속 간다 / 일단 내린다'],
-       ['시스템','반대 방향 버스를 탄 것 같다.']
+       ['시스템','이제 빅토리아 하버 야경을 보러 가기로 했다.'],
+       ['버스','목적지로 가는 버스에 올라탔다.'],
+       ['시스템','그런데 지도를 보니 하버가 점점 멀어진다.'],
+       ['서연','어...? 우리 반대로 가는 것 같은데?'],
+       ['선택지','조금 더 타본다 / 다음 정류장에서 내린다'],
+       ['시스템','결론: 반대 방향 버스를 탔다.']
      ]);
    } else show('버스','이번에는 방향을 두 번 확인해야 할 것 같다.');
    return true;
@@ -692,23 +692,24 @@ function interactTileAt(x,y){
      state.flags.hkWrongStop=true;
      addItem('예상 밖의 홍콩 동네');
      queue([
-       ['시스템','일단 버스에서 내렸다.'],
-       ['골목','원래 올 예정은 없었던 동네다.'],
-       ['골목','그런데 생각보다 구경하는 맛이 있다.'],
-       ['서연','잘못 왔는데 이것도 재밌다.'],
-       ['시스템','이번엔 방향을 두 번 확인하고 다시 출발!']
+       ['시스템','다음 정류장에서 일단 내렸다.'],
+       ['골목','계획에는 없던 동네에 도착했다.'],
+       ['골목','어차피 온 김에 잠깐 둘러보기로 했다.'],
+       ['서연','잘못 왔는데 이것도 여행 같고 재밌다.'],
+       ['시스템','이번엔 방향을 제대로 확인하고 하버로 다시 출발!']
      ]);
    } else show('골목','계획에는 없었지만 기억에는 남았다.');
    return true;
  }
  if(state.map==='hongkong' && (t==='V'||t==='v')){
-   if(!state.flags.hkWrongStop){ show('시스템','반대 방향 버스 사건부터 해결하고 오자.'); return true; }
+   if(!state.flags.hkWrongStop){ show('시스템','버스 방향부터 다시 확인하고 오자.'); return true; }
    if(!state.flags.hongkongDone){
      state.flags.hongkongDone=true;
      addItem('홍콩의 야경');
      queue([
+       ['빅토리아 하버','드디어 제대로 도착했다.'],
        ['야경 포인트','불빛이 한눈에 들어온다.'],
-       ['시스템','분명 계획대로 된 건 별로 없었다.'],
+       ['시스템','버스는 반대로 탔지만 결국 야경까지 잘 왔다.'],
        ['서연의 생각','얼렁뚱땅 떠난 첫 여행💗 모든 것이 살짝 어설펐는데 그래서 더 재밌었음!'],
        ['시스템','[퀘스트 완료] 계획대로 안 된 홍콩']
      ]);
@@ -721,7 +722,7 @@ function interactTileAt(x,y){
      addItem('미소카츠');
      queue([
        ['식당','된장 소스가 듬뿍 올라간 돈까스가 나왔다.'],
-       ['시스템','[나고야메시 발견] 미소카츠 1/3']
+       ['시스템','[나고야메시 발견] 미소카츠 1/4']
      ]);
    } else show('식당','미소카츠는 이미 클리어했다.');
    return true;
@@ -734,7 +735,7 @@ function interactTileAt(x,y){
      queue([
        ['식당','히츠마부시가 나왔다.'],
        ['시스템','먹는 방법이 여러 개인데 다 맛있다.'],
-       ['시스템','[나고야메시 발견] 히츠마부시 2/3']
+       ['시스템','[나고야메시 발견] 히츠마부시 2/4']
      ]);
    } else show('식당','히츠마부시도 이미 클리어했다.');
    return true;
@@ -747,11 +748,23 @@ function interactTileAt(x,y){
      queue([
        ['식당','닭날개튀김이 나왔다.'],
        ['시스템','손에 묻는 건 포기하고 먹기로 했다.'],
-       ['시스템','[나고야메시 발견] 테바사키 3/3'],
-       ['시스템','나고야메시 도감 완성!'],
-       ['시스템','여행의 또 다른 목적도 달성했다.']
+       ['시스템','[나고야메시 발견] 테바사키 3/4']
      ]);
    } else show('식당','테바사키도 이미 클리어했다.');
+   return true;
+ }
+ if(state.map==='nagoya' && t==='C'){
+   if(!state.flags.nagoyaTeba){ show('시스템','테바사키부터 먹고 가자.'); return true; }
+   if(!state.flags.nagoyaHarbs){
+     state.flags.nagoyaHarbs=true;
+     addItem('하브스 케이크');
+     queue([
+       ['하브스','쇼케이스에 과일 케이크가 가득하다.'],
+       ['시스템','밥을 그렇게 먹었는데 케이크 들어갈 자리는 따로 있다.'],
+       ['시스템','[나고야메시 발견] 하브스 케이크 4/4'],
+       ['시스템','나고야 먹거리 도감 완성!']
+     ]);
+   } else show('하브스','케이크는 이미 맛있게 먹었다.');
    return true;
  }
  if(state.map==='nagoya' && (t==='W'||t==='w')){
@@ -835,7 +848,7 @@ function talk(n){
  } else if(n.kind==='aquarium'){
    show(n.name,'오늘 해달 컨디션 좋아. 안쪽 수조에서 말랑이를 찾아봐.');
  } else if(n.kind==='otter'){
-   if(!(state.flags.nagoyaMiso&&state.flags.nagoyaHitsu&&state.flags.nagoyaTeba)){
+   if(!(state.flags.nagoyaMiso&&state.flags.nagoyaHitsu&&state.flags.nagoyaTeba&&state.flags.nagoyaHarbs)){
      show('시스템','나고야메시 도감부터 채우고 말랑이를 만나자.');
      return;
    }
@@ -1092,6 +1105,14 @@ function drawTebasaki(px,py){
  ctx.fillRect(px+10,py+20,10,4);
  ctx.fillStyle='#fff';ctx.font='bold 7px monospace';ctx.fillText('TEBA',px+5,py+10);
 }
+function drawHarbsCake(px,py){
+ ctx.fillStyle='#fff5ef';ctx.fillRect(px+3,py+5,26,22);
+ ctx.fillStyle='#d96f83';ctx.fillRect(px+7,py+15,18,8);
+ ctx.fillStyle='#f5d6a1';ctx.fillRect(px+7,py+12,18,4);
+ ctx.fillStyle='#ffefef';ctx.fillRect(px+9,py+9,14,4);
+ ctx.fillStyle='#5b8c46';ctx.fillRect(px+15,py+7,3,3);
+ ctx.fillStyle='#7a3a4a';ctx.font='bold 6px monospace';ctx.fillText('HARBS',px+5,py+26);
+}
 function drawAquariumBuilding(px,py){
  ctx.fillStyle='#dce5e8';ctx.fillRect(px+2,py+4,28,24);
  ctx.fillStyle='#3b89a1';ctx.fillRect(px+5,py+8,22,12);
@@ -1153,6 +1174,7 @@ function drawTile(x,y,ch){
  if(state.map==='nagoya' && ch==='M'){ drawMisoKatsu(px,py); return; }
  if(state.map==='nagoya' && ch==='H'){ drawHitsumabushi(px,py); return; }
  if(state.map==='nagoya' && ch==='T'){ drawTebasaki(px,py); return; }
+ if(state.map==='nagoya' && ch==='C'){ drawHarbsCake(px,py); return; }
  if(ch==='a' || ch==='A'){ drawAquariumBuilding(px,py); return; }
  if(ch==='w' || ch==='W'){ drawWaterTank(px,py); return; }
  if(ch==='*'){ drawFlowers(px,py); return; }

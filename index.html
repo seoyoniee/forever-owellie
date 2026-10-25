@@ -797,8 +797,7 @@ function interact(){
 
  // 정확히 한 칸 앞이 아니어도 가까운 목표를 자동으로 잡기
  const near=nearbyInteractionTarget();
- if(near){
-   if(near.kind==='npc'){ talk(near.n); return; }
+ if(near){   if(near.kind==='npc'){ talk(near.n); return; }
    if(near.kind==='tile' && interactTileAt(near.x,near.y)) return;
  }
 
@@ -998,3 +997,568 @@ function drawFridge(px,py){
  ctx.fillStyle='#e9ecec';ctx.fillRect(px+5,py+3,22,27);
  ctx.fillStyle='#c9d0d2';ctx.fillRect(px+6,py+15,20,2);
  ctx.fillStyle='#777';ctx.fillRect(px+22,py+8,2,5);ctx.fillRect(px+22,py+20,2,5);
+}
+function drawStove(px,py){
+ ctx.fillStyle='#c7b29a';ctx.fillRect(px+2,py+8,28,20);
+ ctx.fillStyle='#3e4145';ctx.fillRect(px+5,py+10,22,10);
+ ctx.fillStyle='#17191b';ctx.fillRect(px+8,py+12,5,5);ctx.fillRect(px+19,py+12,5,5);
+ ctx.fillStyle='#e7ddd1';ctx.fillRect(px+3,py+5,26,4);
+}
+function drawKitchen(px,py){
+ ctx.fillStyle='#b98a63';ctx.fillRect(px+1,py+9,30,18);
+ ctx.fillStyle='#eee3d6';ctx.fillRect(px+1,py+5,30,5);
+ ctx.fillStyle='#7c8f99';ctx.fillRect(px+5,py+12,9,6);
+ ctx.fillStyle='#d7c3a1';ctx.fillRect(px+18,py+12,8,6);
+ ctx.fillStyle='#f1f0e8';ctx.fillRect(px+21,py+13,4,3);
+}
+function drawDesk(px,py){
+ ctx.fillStyle='#6b4c39';ctx.fillRect(px+1,py+11,30,12);
+ ctx.fillStyle='#8c674c';ctx.fillRect(px+2,py+8,28,5);
+ ctx.fillStyle='#2f3540';ctx.fillRect(px+4,py+2,10,7);
+ ctx.fillStyle='#2f3540';ctx.fillRect(px+18,py+2,10,7);
+ ctx.fillStyle='#a9c5d5';ctx.fillRect(px+5,py+3,8,5);
+ ctx.fillStyle='#a9c5d5';ctx.fillRect(px+19,py+3,8,5);
+ ctx.fillStyle='#ddd';ctx.fillRect(px+6,py+23,3,5);ctx.fillRect(px+23,py+23,3,5);
+}
+function drawCoffee(px,py){
+ ctx.fillStyle='#c9b79f';ctx.fillRect(px+2,py+18,28,10);
+ ctx.fillStyle='#29292c';ctx.fillRect(px+8,py+5,13,14);
+ ctx.fillStyle='#56565b';ctx.fillRect(px+10,py+7,9,5);
+ ctx.fillStyle='#a37b4f';ctx.fillRect(px+11,py+15,7,3);
+ ctx.fillStyle='#fff';ctx.fillRect(px+22,py+14,6,5);
+ ctx.fillStyle='#6a4425';ctx.fillRect(px+23,py+15,4,2);
+}
+function drawSofa(px,py){
+ ctx.fillStyle='#6f7d67';ctx.fillRect(px+2,py+8,28,16);
+ ctx.fillStyle='#8f9d84';ctx.fillRect(px+4,py+11,24,9);
+ ctx.fillStyle='#55604f';ctx.fillRect(px+5,py+23,4,4);ctx.fillRect(px+23,py+23,4,4);
+ ctx.fillStyle='#d8c7a4';ctx.fillRect(px+7,py+12,7,6);
+}
+function drawHomeRug(){
+ ctx.save();
+ ctx.fillStyle='rgba(166,116,88,0.18)';
+ ctx.fillRect(7*T,6*T,5*T,4*T);
+ ctx.strokeStyle='rgba(120,83,65,0.25)';ctx.lineWidth=2;
+ ctx.strokeRect(7*T+3,6*T+3,5*T-6,4*T-6);
+ ctx.restore();
+}
+function drawNeon(px,py,big=false){
+ ctx.fillStyle='#20273a';ctx.fillRect(px+2,py+2,28,28);
+ ctx.fillStyle=big?'#ff5ca9':'#4bd8ff';ctx.fillRect(px+4,py+5,24,5);
+ ctx.fillStyle=big?'#ffcf4b':'#ff7b7b';ctx.fillRect(px+6,py+13,18,4);
+ ctx.fillStyle='#7ab7ff';ctx.fillRect(px+8,py+20,8,3);
+}
+function drawTram(px,py){
+ ctx.fillStyle='#d84545';ctx.fillRect(px+3,py+10,26,11);
+ ctx.fillStyle='#f5e3b8';ctx.fillRect(px+6,py+13,6,4);ctx.fillRect(px+14,py+13,6,4);ctx.fillRect(px+22,py+13,4,4);
+ ctx.fillStyle='#444';ctx.fillRect(px+7,py+21,4,3);ctx.fillRect(px+21,py+21,4,3);
+}
+function drawView(px,py){
+ ctx.fillStyle='#112038';ctx.fillRect(px,py,T,T);
+ ctx.fillStyle='#243a5a';ctx.fillRect(px+2,py+12,28,16);
+ ctx.fillStyle='#f0c95b';ctx.fillRect(px+4,py+10,2,2);ctx.fillRect(px+9,py+8,3,3);ctx.fillRect(px+18,py+11,2,2);ctx.fillRect(px+23,py+7,3,3);
+ ctx.fillStyle='#7ae5ff';ctx.fillRect(px+14,py+20,12,2);
+ ctx.fillStyle='#d94c4c';ctx.fillRect(px+8,py+17,6,2);
+}
+function drawDimsumShop(px,py){
+ ctx.fillStyle='#7a2e2e';ctx.fillRect(px+2,py+4,28,24);
+ ctx.fillStyle='#f0d9aa';ctx.fillRect(px+5,py+8,22,7);
+ ctx.fillStyle='#fff0cf';ctx.font='bold 8px monospace';ctx.fillText('DIM',px+7,py+14);
+ ctx.fillStyle='#b88258';ctx.fillRect(px+8,py+19,6,5);ctx.fillRect(px+18,py+19,6,5);
+}
+function drawEggTartShop(px,py){
+ ctx.fillStyle='#dca75d';ctx.fillRect(px+2,py+4,28,24);
+ ctx.fillStyle='#fff1b8';ctx.fillRect(px+5,py+8,22,6);
+ ctx.fillStyle='#8d542a';ctx.fillRect(px+7,py+18,18,7);
+ ctx.fillStyle='#ffd85c';ctx.fillRect(px+11,py+19,10,5);
+}
+function drawBusStop(px,py){
+ ctx.fillStyle='#d8d8d8';ctx.fillRect(px+7,py+3,3,25);
+ ctx.fillStyle='#e53f45';ctx.fillRect(px+10,py+5,15,9);
+ ctx.fillStyle='#fff';ctx.font='bold 7px monospace';ctx.fillText('BUS',px+11,py+12);
+}
+function drawWrongStop(px,py){
+ ctx.fillStyle='#3b4c61';ctx.fillRect(px+2,py+3,28,26);
+ ctx.fillStyle='#ffcf58';ctx.fillRect(px+4,py+6,8,4);
+ ctx.fillStyle='#ff6d8d';ctx.fillRect(px+16,py+10,11,4);
+ ctx.fillStyle='#77d9ff';ctx.fillRect(px+6,py+18,15,3);
+}
+function drawMisoKatsu(px,py){
+ ctx.fillStyle='#f1e3bf';ctx.fillRect(px+3,py+5,26,22);
+ ctx.fillStyle='#8b5b2d';ctx.fillRect(px+6,py+14,20,7);
+ ctx.fillStyle='#5d371f';ctx.fillRect(px+8,py+16,16,4);
+ ctx.fillStyle='#fff';ctx.font='bold 7px monospace';ctx.fillText('MISO',px+6,py+11);
+}
+function drawHitsumabushi(px,py){
+ ctx.fillStyle='#3c2a22';ctx.fillRect(px+4,py+7,24,20);
+ ctx.fillStyle='#d7a25d';ctx.fillRect(px+7,py+10,18,12);
+ ctx.fillStyle='#7b3d20';ctx.fillRect(px+8,py+11,16,8);
+ ctx.fillStyle='#fff2b0';ctx.fillRect(px+10,py+22,12,2);
+}
+function drawTebasaki(px,py){
+ ctx.fillStyle='#f3dfbd';ctx.fillRect(px+3,py+5,26,22);
+ ctx.fillStyle='#b96b33';ctx.fillRect(px+7,py+12,8,5);
+ ctx.fillRect(px+14,py+15,9,5);
+ ctx.fillRect(px+10,py+20,10,4);
+ ctx.fillStyle='#fff';ctx.font='bold 7px monospace';ctx.fillText('TEBA',px+5,py+10);
+}
+function drawAquariumBuilding(px,py){
+ ctx.fillStyle='#dce5e8';ctx.fillRect(px+2,py+4,28,24);
+ ctx.fillStyle='#3b89a1';ctx.fillRect(px+5,py+8,22,12);
+ ctx.fillStyle='#ffffff';ctx.font='bold 7px monospace';ctx.fillText('AQ',px+10,py+25);
+}
+function drawWaterTank(px,py){
+ ctx.fillStyle='#3a91a5';ctx.fillRect(px+2,py+2,28,28);
+ ctx.fillStyle='#81d3df';ctx.fillRect(px+6,py+7,20,16);
+ ctx.fillStyle='#a8eef4';ctx.fillRect(px+8,py+10,4,2);ctx.fillRect(px+17,py+16,5,2);
+}
+function drawFlowers(px,py){
+ ctx.fillStyle='#f5e7a1';ctx.fillRect(px+13,py+13,6,6);
+}
+function drawWarp(px,py){
+ ctx.fillStyle='#d7c58f';ctx.fillRect(px,py,T,T);
+ ctx.fillStyle='#9f8b5e';ctx.fillRect(px,py+14,T,4);
+ ctx.fillStyle='#8f7b4e';ctx.fillRect(px+8,py+10,4,12);ctx.fillRect(px+20,py+10,4,12);
+}
+function drawTile(x,y,ch){
+ const px=x*T, py=y*T;
+ const pal=current().palette;
+ ctx.fillStyle=pal.ground; ctx.fillRect(px,py,T,T);
+ if(ch==='.' && (x+y)%5===0){
+   ctx.fillStyle='rgba(255,255,255,0.06)';ctx.fillRect(px+5,py+6,3,3);
+ }
+ if(ch==='#'){ ctx.fillStyle=pal.border; ctx.fillRect(px,py,T,T); return; }
+ if(ch==='.') return;
+
+ if(state.map==='home'){
+   if(ch==='F'){ drawFridge(px,py); return; }
+   if(ch==='S'){ drawStove(px,py); return; }
+   if(ch==='k' || ch==='K'){ drawKitchen(px,py); return; }
+   if(ch==='d' || ch==='D'){ drawDesk(px,py); return; }
+   if(ch==='c' || ch==='C'){ drawCoffee(px,py); return; }
+   if(ch==='b'){ drawSofa(px,py); return; }
+ }
+
+ if(ch==='t'){ drawTree(px,py); return; }
+ if(ch==='o'){ drawOfficeBuilding(px,py); return; }
+ if(state.map==='office' && (ch==='c' || ch==='C')){ drawConvenience(px,py,ch==='C'); return; }
+ if(state.map==='park' && (ch==='k' || ch==='K')){ drawKakao(px,py,ch==='K'); return; }
+ if(ch==='p'){ drawBenchPlaza(px,py); return; }
+ if(ch==='b'){ drawBench(px,py); return; }
+ if(ch==='u' || ch==='Y'){ drawYonsei(px,py); return; }
+ if(state.map==='sinchon' && ch==='r'){ drawSinchonBar(px,py,false); return; }
+ if(state.map==='sinchon' && ch==='R'){ drawSinchonBar(px,py,true); return; }
+ if(state.map==='sinchon' && ch==='s'){ drawStatue(px,py); return; }
+ if(state.map==='sinchon' && ch==='g'){ drawSteps(px,py); return; }
+ if(ch==='l'){ drawLPBar(px,py,false); return; }
+ if(ch==='L'){ drawLPBar(px,py,true); return; }
+ if(state.map==='hongkong' && ch==='D'){ drawDimsumShop(px,py); return; }
+ if(state.map==='hongkong' && ch==='E'){ drawEggTartShop(px,py); return; }
+ if(state.map==='hongkong' && ch==='B'){ drawBusStop(px,py); return; }
+ if(state.map==='hongkong' && ch==='X'){ drawWrongStop(px,py); return; }
+ if(ch==='n' || ch==='N'){ drawNeon(px,py,ch==='N'); return; }
+ if(ch==='m'){ drawTram(px,py); return; }
+ if(ch==='r'){ ctx.fillStyle='#705b46';ctx.fillRect(px+3,py+7,26,18); return; }
+ if(ch==='v' || ch==='V'){ drawView(px,py); return; }
+ if(state.map==='nagoya' && ch==='M'){ drawMisoKatsu(px,py); return; }
+ if(state.map==='nagoya' && ch==='H'){ drawHitsumabushi(px,py); return; }
+ if(state.map==='nagoya' && ch==='T'){ drawTebasaki(px,py); return; }
+ if(ch==='a' || ch==='A'){ drawAquariumBuilding(px,py); return; }
+ if(ch==='w' || ch==='W'){ drawWaterTank(px,py); return; }
+ if(ch==='*'){ drawFlowers(px,py); return; }
+ if(ch==='='){ drawWarp(px,py); return; }
+}
+
+function wrap(text,x,y,maxW,lineH){
+ let yy=y;
+ for(const para of text.split('\n')){
+   if(!para){yy+=lineH;continue;}
+   let line='';
+   for(const ch of para){
+     const t=line+ch;
+     if(ctx.measureText(t).width>maxW){ ctx.fillText(line,x,yy); yy+=lineH; line=ch; }
+     else line=t;
+   }
+   if(line){ ctx.fillText(line,x,yy); yy+=lineH; }
+ }
+ return yy;
+}
+function markerXY(obj){
+ if(obj.type==='npc') return {x:obj.x*T+16,y:obj.y*T+2};
+ if(obj.type==='warp') return {x:obj.x*T+16,y:obj.y*T+8};
+ return {x:obj.x*T+16,y:obj.y*T+6};
+}
+
+function drawSparkles(){
+ const obj=objective();
+ const charsByMap={
+   office:['C','c'], park:['b'], sinchon:['R','Y','s','g','L','l'],
+   home:['K','k','D','d','C','c'], hongkong:['D','E','B','X','V','v'], nagoya:['W','w']
+ };
+ const chars=charsByMap[state.map]||[];
+ const pulse=(Math.sin(frame/10)+1)/2;
+ ctx.save();
+ ctx.globalAlpha=.35+.35*pulse;
+ ctx.fillStyle='#fff4a8';
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+   if(chars.includes(tile(x,y))){
+     ctx.fillRect(x*T+14,y*T+4,4,4);
+     if((x+y+Math.floor(frame/12))%2===0)ctx.fillRect(x*T+20,y*T+9,2,2);
+   }
+ }
+ ctx.restore();
+}
+
+function drawObjectiveMarker(){
+ const obj=objective();
+ if(obj.map!==state.map) return;
+ const m=markerXY(obj);
+ const bob=Math.sin(frame/10)*2;
+ ctx.save();
+ ctx.globalAlpha=0.18;
+ ctx.fillStyle='#ffe76b';
+ ctx.beginPath();ctx.arc(m.x,m.y+7,18+Math.sin(frame/12)*3,0,Math.PI*2);ctx.fill();
+ ctx.restore();
+ ctx.fillStyle='#ffef72';
+ ctx.fillRect(m.x-3,m.y-18+bob,6,10);
+ ctx.fillRect(m.x-3,m.y-5+bob,6,3);
+ ctx.fillStyle='#8b6a00';
+ ctx.fillRect(m.x-2,m.y-17+bob,4,8);
+}
+function drawDirectionArrow(){
+ const obj=objective();
+ if(obj.map!==state.map) return;
+ const target=markerXY(obj);
+ const dx=target.x-(state.p.x*T+16), dy=target.y-(state.p.y*T+16);
+ if(Math.abs(dx)<20 && Math.abs(dy)<20) return;
+ ctx.save();
+ ctx.translate(608,64);
+ let ang=Math.atan2(dy,dx);
+ ctx.rotate(ang);
+ ctx.fillStyle='#ffd84d';
+ ctx.beginPath();
+ ctx.moveTo(0,0); ctx.lineTo(-16,-8); ctx.lineTo(-16,8); ctx.closePath();
+ ctx.fill();
+ ctx.restore();
+ ctx.fillStyle='#000a';ctx.fillRect(560,46,64,28);
+ ctx.fillStyle='#fff';ctx.font='12px monospace';ctx.fillText('목표',578,64);
+}
+function drawStarter(){
+ ctx.fillStyle='#18211a';ctx.fillRect(0,0,640,480);
+ ctx.fillStyle='#f7f1d5';ctx.fillRect(35,28,570,424);ctx.strokeStyle='#2d352e';ctx.lineWidth=6;ctx.strokeRect(35,28,570,424);
+ ctx.fillStyle='#222';ctx.font='bold 26px monospace';ctx.fillText('파트너 포켓몬을 선택하세요',126,72);
+ ctx.font='15px monospace';ctx.fillText('트레이너 옆에서 함께 여행할 한 마리를 고르세요.',112,101);
+ starters.forEach((m,i)=>{
+  const x=75+i*170,y=145;
+  ctx.fillStyle=i===state.starterIndex?'#fff2b2':'#e9e1c2';ctx.fillRect(x,y,150,205);
+  ctx.strokeStyle=i===state.starterIndex?'#222':'#888';ctx.lineWidth=i===state.starterIndex?5:2;ctx.strokeRect(x,y,150,205);
+  drawMonster(m,x+58,y+28,1.2);
+  ctx.fillStyle='#222';ctx.font='bold 19px monospace';ctx.fillText(m.name,x+43,y+112);
+  ctx.font='14px monospace';ctx.fillText('타입: '+m.type,x+40,y+140);if(i===state.starterIndex)ctx.fillText('▶ 선택됨',x+45,y+190);
+ });
+ ctx.font='15px monospace';ctx.fillText('← → / A D : 선택     Space / Enter : 결정',128,404);
+}
+
+function drawLandmarkLabels(){
+ ctx.save();
+ ctx.font='bold 10px monospace';
+ ctx.textAlign='center';
+ const label=(txt,x,y)=>{
+   const w=ctx.measureText(txt).width+10;
+   ctx.fillStyle='#000a';ctx.fillRect(x-w/2,y-11,w,15);
+   ctx.fillStyle='#fff';ctx.fillText(txt,x,y);
+ };
+ if(state.map==='office') label('편의점',6*T,9*T+8);
+ if(state.map==='park'){
+   label('카카오',5*T,1*T+7);
+   label('판교 공원 벤치',6*T,3*T+7);
+ }
+ if(state.map==='sinchon'){
+   label('연세대학교',4*T,1*T+7);
+   label('LP BAR',12*T,1*T+7);
+ }
+ if(state.map==='home'){
+   label('주방',4*T,1*T+7);
+   label('큰 테이블 · 노트북 2대',12*T,2*T+7);
+   label('거실',4*T,7*T+7);
+   label('커피 코너',15*T,8*T+7);
+ }
+ if(state.map==='hongkong'){
+   label('딤섬',2*T,2*T+7);
+   label('에그타르트',13*T,2*T+7);
+   label('버스 정류장',14*T,5*T+7);
+   label('어쩌다 내린 동네',3*T,7*T+7);
+   label('빅토리아 하버',8*T,9*T+7);
+ }
+ if(state.map==='nagoya'){
+   label('미소카츠',3*T,1*T+7);
+   label('히츠마부시',8*T,1*T+7);
+   label('테바사키',13*T,1*T+7);
+   label('수족관',7*T,3*T+7);
+   label('해달 수조',12*T,6*T+7);
+ }
+ ctx.restore();
+}
+
+function drawUI(){
+ ctx.fillStyle='#0008';ctx.fillRect(8,8,300,32);
+ ctx.fillStyle='#fff';ctx.font='15px monospace';
+ ctx.fillText(current().title+(state.starter?' · '+state.starter.name:''),18,29);
+
+ ctx.fillStyle='#0008';ctx.fillRect(8,44,624,40);
+ ctx.fillStyle='#fff';ctx.font='13px monospace';
+ ctx.fillText('현재 목표: '+objectiveText(),18,69);
+
+ ctx.fillStyle='#0008';ctx.fillRect(510,8,122,32);
+ ctx.fillStyle='#fff';ctx.font='13px monospace';
+ ctx.fillText('Q: 모험 노트',522,29);
+
+ if(state.dialogue){
+  ctx.fillStyle='#f7f1d5';ctx.fillRect(24,342,592,114);
+  ctx.strokeStyle='#303030';ctx.lineWidth=4;ctx.strokeRect(24,342,592,114);
+  ctx.fillStyle='#303030';ctx.font='bold 16px monospace';ctx.fillText(state.dialogue.name,40,370);
+  ctx.font='15px monospace';wrap(state.dialogue.text,40,396,550,20);
+  ctx.fillText('▼',584,438);
+ }
+ if(state.questOpen){
+  ctx.fillStyle='#efe8c8';ctx.fillRect(62,52,516,374);
+  ctx.strokeStyle='#292929';ctx.lineWidth=5;ctx.strokeRect(62,52,516,374);
+  ctx.fillStyle='#222';ctx.font='bold 22px monospace';ctx.fillText('모험 노트',90,90);
+  ctx.font='15px monospace';
+  wrap('현재 퀘스트\n'+objectiveText()+'\n\n지나온 순간\n'+(state.items.length?state.items.map(x=>'· '+x).join('\n'):'아직 없음')+'\n\n진행 팁\n· 노란 느낌표가 현재 목표야.\n· 오른쪽 위 화살표가 방향을 알려줘.\n· 다음 지역은 오른쪽 출구로 이동하면 돼.',90,128,450,24);
+ }
+}
+
+
+function drawDialogueOnly(){
+ if(!state.dialogue) return;
+ ctx.fillStyle='#f7f1d5';ctx.fillRect(24,342,592,114);
+ ctx.strokeStyle='#303030';ctx.lineWidth=4;ctx.strokeRect(24,342,592,114);
+ ctx.fillStyle='#303030';ctx.font='bold 16px monospace';ctx.fillText(state.dialogue.name,40,370);
+ ctx.font='15px monospace';wrap(state.dialogue.text,40,396,550,20);
+ ctx.fillText('▼',584,438);
+}
+
+function drawChapterCard(){
+ if(!state.chapterCard)return false;
+ const cc=state.chapterCard;cc.frames++;
+ ctx.fillStyle='#111826';ctx.fillRect(0,0,640,480);
+ ctx.fillStyle='#f7f1d5';ctx.textAlign='center';
+ ctx.font='bold 28px monospace';ctx.fillText(cc.title,320,205);
+ ctx.font='18px monospace';ctx.fillText(cc.subtitle,320,245);
+ ctx.textAlign='left';
+ if(cc.frames>80){
+   const cb=cc.cb;state.chapterCard=null;
+   if(cb)cb();
+ }
+ return true;
+}
+function drawTransition(){
+ if(!state.transition)return false;
+ const tr=state.transition;tr.frames++;
+ ctx.fillStyle='#111826';ctx.fillRect(0,0,640,480);
+ if(tr.label){
+   ctx.fillStyle='#f7f1d5';ctx.font='20px monospace';ctx.textAlign='center';ctx.fillText(tr.label,320,240);ctx.textAlign='left';
+ }
+ if(tr.frames===55){
+   setMap(tr.nextMap,tr.x,tr.y,tr.partnerX,tr.partnerY);
+ }
+ if(tr.frames>95){
+   state.transition=null;
+   state.suppressUI=(state.map==='ending');
+ }
+ return true;
+}
+
+
+function drawEndingPrompt(){
+ if(state.map!=='ending' || state.dialogue || state.mode!=='play') return;
+ ctx.save();
+ ctx.fillStyle='rgba(0,0,0,0.58)';
+ ctx.fillRect(170,410,300,42);
+ ctx.fillStyle='#fff';
+ ctx.font='bold 15px monospace';
+ ctx.textAlign='center';
+ ctx.fillText('서연에게 다가가거나 Space를 눌러보자',320,436);
+ ctx.restore();
+}
+
+function drawEnd(){
+ ctx.fillStyle='#111826';ctx.fillRect(0,0,640,480);
+ ctx.fillStyle='#f7f1d5';ctx.textAlign='center';
+ ctx.font='bold 28px monospace';ctx.fillText('우리 앞으로도 행복하자!',320,205);
+ ctx.font='bold 30px monospace';ctx.fillText('Marry me! 💗',320,270);
+ ctx.font='14px monospace';ctx.fillText('THE END',320,330);
+ ctx.textAlign='left';
+}
+function draw(){
+ frame++;
+ if(state.mode==='starter'){ drawStarter(); return; }
+ if(state.mode==='end'){ drawEnd(); return; }
+ if(drawChapterCard()) return;
+ if(drawTransition()) return;
+
+ const m=current();
+ for(let y=0;y<H;y++) for(let x=0;x<W;x++) drawTile(x,y,m.tiles[y][x]);
+ if(state.map==='home') drawHomeRug();
+ for(const n of m.npcs) drawNpc(n);
+ if(state.starter) drawMonster(state.starter,state.partner.x*T,state.partner.y*T,1);
+ drawTrainer(state.p.x*T,state.p.y*T);
+
+ if(state.map==='ending'){
+   state.suppressUI=true;
+ }else{
+   drawLandmarkLabels();
+   drawSparkles();
+   drawObjectiveMarker();
+   drawDirectionArrow();
+ }
+ if(!state.suppressUI) drawUI();
+ if(state.suppressUI && state.dialogue) drawDialogueOnly();
+ drawEndingPrompt();
+
+}
+
+
+function isActionKey(e){
+  return e.code==='Space' || e.key===' ' || e.key==='Spacebar' ||
+         e.code==='Enter' || e.key==='Enter' || e.keyCode===32 || e.keyCode===13;
+}
+
+function loop(){ draw(); requestAnimationFrame(loop); }
+loop();
+
+
+function doAction(){
+  if(state.transition || state.chapterCard) return;
+  if(state.mode==='starter'){
+    state.starter=starters[state.starterIndex];
+    state.mode='play';
+    queue([
+      ['시스템',state.starter.name+'가 파트너가 되었다!'],
+      ['동료','점심시간인데, 일단 편의점 쪽으로 가보자.']
+    ]);
+    draw(); return;
+  }
+  if(state.mode==='end') return;
+  if(state.questOpen){ state.questOpen=false; draw(); return; }
+  interact();
+  draw();
+}
+
+function doMenu(){
+  if(state.mode!=='play' || state.transition || state.chapterCard) return;
+  state.questOpen=!state.questOpen;
+  state.dialogue=null;
+  draw();
+}
+
+function doMove(dir){
+  if(state.transition || state.chapterCard) return;
+
+  if(state.mode==='starter'){
+    if(dir==='left' || dir==='up') state.starterIndex=(state.starterIndex+2)%3;
+    if(dir==='right' || dir==='down') state.starterIndex=(state.starterIndex+1)%3;
+    draw(); return;
+  }
+
+  if(state.mode!=='play' || state.questOpen) return;
+
+  if(dir==='up') move(0,-1,'up');
+  if(dir==='down') move(0,1,'down');
+  if(dir==='left') move(-1,0,'left');
+  if(dir==='right') move(1,0,'right');
+  draw();
+}
+
+// Physical keyboard remains available for desktop testing.
+document.addEventListener('keydown', e=>{
+  const k=(e.key||'').toLowerCase();
+  if(['arrowup','arrowdown','arrowleft','arrowright',' ','enter','q','w','a','s','d'].includes(k)){
+    e.preventDefault();
+  }
+  if(k==='arrowup'||k==='w') doMove('up');
+  else if(k==='arrowdown'||k==='s') doMove('down');
+  else if(k==='arrowleft'||k==='a') doMove('left');
+  else if(k==='arrowright'||k==='d') doMove('right');
+  else if(k==='q') doMenu();
+  else if(k===' '||k==='enter') doAction();
+},{passive:false});
+
+// Mobile touch/click input.
+// touchstart gives the fastest response on phones; click is a fallback for browsers/webviews.
+let lastTouchTime = 0;
+let holdDelay = null;
+let holdTimer = null;
+
+function pressVisual(el){
+  el.classList.add('pressed');
+}
+function releaseVisual(el){
+  el.classList.remove('pressed');
+}
+
+function stopHold(el){
+  clearTimeout(holdDelay);
+  clearInterval(holdTimer);
+  holdDelay=null;
+  holdTimer=null;
+  if(el) releaseVisual(el);
+}
+
+function startDirection(dir, el){
+  pressVisual(el);
+  doMove(dir);
+  clearTimeout(holdDelay);
+  clearInterval(holdTimer);
+  holdDelay=setTimeout(()=>{
+    holdTimer=setInterval(()=>doMove(dir),120);
+  },260);
+}
+
+function onTouchDir(e, dir, el){
+  e.preventDefault();
+  e.stopPropagation();
+  lastTouchTime=Date.now();
+  startDirection(dir,el);
+}
+function onTouchEnd(e, el){
+  e.preventDefault();
+  e.stopPropagation();
+  stopHold(el);
+}
+function onMouseDir(e, dir, el){
+  if(Date.now()-lastTouchTime < 700) return;
+  e.preventDefault();
+  startDirection(dir,el);
+}
+function onMouseEnd(e, el){
+  if(Date.now()-lastTouchTime < 700) return;
+  e.preventDefault();
+  stopHold(el);
+}
+
+function runTap(kind, el){
+  pressVisual(el);
+  setTimeout(()=>releaseVisual(el),100);
+  if(kind==='a') doAction();
+  if(kind==='q') doMenu();
+}
+function onTouchTap(e, kind, el){
+  e.preventDefault();
+  e.stopPropagation();
+  lastTouchTime=Date.now();
+  runTap(kind,el);
+}
+function onClickTap(e, kind, el){
+  e.preventDefault();
+  e.stopPropagation();
+  if(Date.now()-lastTouchTime < 700) return;
+  runTap(kind,el);
+}
+
+document.addEventListener('contextmenu',e=>e.preventDefault());
+
+</script>
+</body>
+</html>

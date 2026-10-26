@@ -229,19 +229,19 @@ const maps={
   palette:{ground:'#b8c7d3', path:'#ddd4bd', border:'#788895'},
   tiles:[
   "####################",
-  "#..uuuu....llll....#",
-  "#..uYYu....lLLl....#",
-  "#..uuuu....llll....#",
-  "#.....s............#",
-  "#....gggg..........#",
-  "#....g..g..........#",
-  "#....gggg..........#",
+  "#rrrr....rrrr..llll#",
+  "#rrrr....rrrr..llll#",
   "#..................#",
-  "#..rrrr............#",
-  "#..rRrr............#",
-  "#..rrrr............#",
+  "#......uuuu........#",
+  "#......uYYu..s.....#",
+  "#......uuuu........#",
+  "#..................#",
+  "#..rrrr......llll..#",
+  "#..rRrr......lLLl..#",
+  "#..rrrr......llll..#",
+  "#..................#",
   "#.................=#",
-  "#..................#",
+  "#....tt....tt......#",
   "####################"],
   npcs:[]
  },
@@ -271,17 +271,17 @@ const maps={
   palette:{ground:'#32425d', path:'#567292', border:'#223044'},
   tiles:[
   "####################",
-  "#.NNnnNN...nnNNnn..#",
-  "#.nDnnnn...nnnEnn..#",
-  "#.nnnnnn...nnnnnn..#",
-  "#....mmmm..........#",
-  "#.............B....#",
+  "#nnnn....nnnnnn....#",
+  "#nNNn....nnNNnn....#",
+  "#nnnn....nnnnnn....#",
+  "#....mmmmmmmm......#",
   "#..................#",
-  "#..X...............#",
+  "#..DD....EE........#",
+  "#..DD....EE...B.X..#",
   "#..................#",
-  "#..vvvvvvvvvv......#",
-  "#..vVVVVVVVVv......#",
-  "#.................=#",
+  "#...........vvvvv..#",
+  "#...........vVVVv.=#",
+  "#...........vvvvv..#",
   "#..................#",
   "#..................#",
   "####################"],
@@ -418,18 +418,18 @@ function objective(){
  }
  if(!f.sinchonDone){
    if(state.map==='park') return {type:'warp', map:'park', x:18, y:12, label:'오른쪽 출구로 가서 신촌으로 이동'};
-   if(!f.sinchonDrink) return {type:'tile', map:'sinchon', x:4, y:10, label:'주말 낮, 일단 낮술부터 시작하기'};
-   if(!f.sinchonYonsei) return {type:'tile', map:'sinchon', x:4, y:2, label:'취한 김에 연세대학교 구경하기'};
-   if(!f.sinchonStatue) return {type:'tile', map:'sinchon', x:6, y:4, label:'연세대 동상 구경하기'};
-   return {type:'tile', map:'sinchon', x:12, y:2, label:'이제 LP바 찾아가기'};
+   if(!f.sinchonDrink) return {type:'tile', map:'sinchon', x:4, y:9, label:'주말 낮, 일단 낮술부터 시작하기'};
+   if(!f.sinchonYonsei) return {type:'tile', map:'sinchon', x:8, y:5, label:'취한 김에 연세대학교 구경하기'};
+   if(!f.sinchonStatue) return {type:'tile', map:'sinchon', x:13, y:5, label:'연세대 동상 구경하기'};
+   return {type:'tile', map:'sinchon', x:15, y:9, label:'이제 LP바 찾아가기'};
  }
  if(!f.hongkongDone){
    if(state.map==='sinchon') return {type:'warp', map:'sinchon', x:18, y:11, label:'오른쪽 출구로 가서 홍콩으로 이동'};
-   if(!f.hkDimsum) return {type:'tile', map:'hongkong', x:2, y:2, label:'홍콩에 왔으니 딤섬부터 먹기'};
-   if(!f.hkEgg) return {type:'tile', map:'hongkong', x:13, y:2, label:'에그타르트 찾으러 가기'};
-   if(!f.hkBus) return {type:'tile', map:'hongkong', x:14, y:5, label:'빅토리아 하버로 가는 버스 타기'};
-   if(!f.hkWrongStop) return {type:'tile', map:'hongkong', x:3, y:7, label:'반대 방향인 걸 알아채고 내려보기'};
-   return {type:'tile', map:'hongkong', x:4, y:10, label:'이번엔 제대로 빅토리아 하버 가기'};
+   if(!f.hkDimsum) return {type:'tile', map:'hongkong', x:3, y:7, label:'홍콩에 왔으니 딤섬부터 먹기'};
+   if(!f.hkEgg) return {type:'tile', map:'hongkong', x:9, y:7, label:'에그타르트 찾으러 가기'};
+   if(!f.hkBus) return {type:'tile', map:'hongkong', x:14, y:7, label:'빅토리아 하버로 가는 버스 타기'};
+   if(!f.hkWrongStop) return {type:'tile', map:'hongkong', x:16, y:7, label:'반대 방향인 걸 알아채고 내려보기'};
+   return {type:'tile', map:'hongkong', x:14, y:10, label:'이번엔 제대로 빅토리아 하버 가기'};
  }
  if(!f.nagoyaDone){
    if(state.map==='hongkong') return {type:'warp', map:'hongkong', x:18, y:11, label:'오른쪽 출구로 가서 나고야로 이동'};
@@ -549,7 +549,7 @@ function interactTileAt(x,y){
        ['시스템','12:50'],
        ['시스템','13:20'],
        ['공원 아저씨','점심에 맥주 마시는 회사원은 처음 보네.'],
-       ['서연의 생각','날씨 때문인지, 말이 잘 통해서인지, 같은 인프피라 그런건지 오웬이랑 있는 시간이 재밌고 좋았어.'],
+       ['서연의 생각','날씨 때문인지, 말이 잘 통해서 인지, 같은 인프피라 그런건지! 오웬이랑 수다떠는거 재밌다!'],
        ['시스템','점심시간이 조금 초과되었습니다.'],
        ['시스템','[퀘스트 완료] 판교 공원']
      ]);
@@ -638,7 +638,7 @@ function interactTileAt(x,y){
        ['커피 코너','원두를 갈고 커피를 내렸다.'],
        ['시스템','커피 냄새가 집에 퍼졌다.'],
        ['시스템','오늘도 내 커피를 정성스럽게 내려준다.'],
-       ['서연의 생각','같이 밥 먹고, 공부하고, 커피 마시는 이런 시간이 제일 행복하고 좋음. 오늘을 살아갈 힘이 되는 시간!💗'],
+       ['서연의 생각','같이 밥먹고 공부하고 커피마시는 시간들이 소소하게 행복하다! 오살힘!!!🤍 (오늘을 살아가는 힘)'],
        ['시스템','[퀘스트 완료] 평범한 하루']
      ]);
    } else show('커피 코너','오늘의 커피는 이미 잘 내려졌다.');
@@ -710,7 +710,7 @@ function interactTileAt(x,y){
        ['빅토리아 하버','드디어 제대로 도착했다.'],
        ['야경 포인트','불빛이 한눈에 들어온다.'],
        ['시스템','버스는 반대로 탔지만 결국 야경까지 잘 왔다.'],
-       ['서연의 생각','얼렁뚱땅 떠난 첫 여행💗 모든 것이 살짝 어설펐는데 그래서 더 재밌었음!'],
+       ['서연의 생각','얼렁뚱땅 첫 여행💗 모든 것이 살짝 어설펐는데 그래두 재밌었다!'],
        ['시스템','[퀘스트 완료] 계획대로 안 된 홍콩']
      ]);
    } else show('야경 포인트','다시 봐도 꽤 멋있다.');
@@ -840,8 +840,7 @@ function talk(n){
        ['시스템','그런데 밖은 이미 깜깜하다.'],
        ['선택지','이제 집에 갈까? / 한 군데만 더 갈까?'],
        ['시스템','어느 쪽을 골라도 조금만 더 놀기로 했다.'],
-       ['서연의 생각','12시간이 2시간 같았던 날.'],
-       ['서연의 생각','오웬이랑 수다 떠는 건 진짜 재밌다고 느낌!'],
+       ['서연의 생각','12시간이 2시간 같았던 날. 오웬이랑 이만큼 친해진게 신기하다!'],
        ['시스템','[퀘스트 완료] 주말 낮부터 시작된 신촌']
      ]);
    } else show(n.name,'좋은 날은 한 곡으로 안 끝나지.');
@@ -862,7 +861,7 @@ function talk(n){
        ['시스템','말랑이가 물 위에서 빙글 돌았다.'],
        ['선택지','말랑이를 더 본다 / 이제 간다'],
        ['시스템','어느 쪽을 골라도 조금만 더 보기로 했다.'],
-       ['서연의 생각','해달이도 보고 맛있는 것도 잔뜩 먹고. 이번 여행은 진짜 완벽했음!'],
+       ['서연의 생각','해달이도 보고 맛있는것도 잔뜩 먹고! 완벽한 나고야 여행🦦'],
        ['시스템','[퀘스트 완료] 나고야']
      ]);
    } else show('말랑이','말랑이는 여전히 말랑해 보인다.');
@@ -1045,45 +1044,51 @@ function drawOfficeDetails(){
 
 function drawSinchonDetails(){
  if(state.map!=='sinchon') return;
- ctx.fillStyle='rgba(255,255,255,0.35)';
- for(let i=0;i<6;i++) ctx.fillRect(1*T+8+i*28,8*T+18,14,3);
- for(const [x,y,w,col] of [[1,9,4,'#d07852'],[10,1,4,'#5d6db0'],[1,1,4,'#8d6f48']]){
-   const px=x*T,py=y*T;
-   ctx.fillStyle=col;ctx.fillRect(px+4,py+3,w*T-8,4);
+ ctx.fillStyle='rgba(255,255,255,0.28)';
+ for(let i=0;i<7;i++) ctx.fillRect(1*T+10+i*22,11*T+18,12,3);
+ for(const [x,y,w,col] of [[1,1,3,'#d07852'],[5,1,3,'#5a7db5'],[10,1,3,'#8a5bb3'],[14,1,3,'#c46b5c'],[2,8,3,'#cc8a52'],[14,8,3,'#8a5bb3']]){
+   const px=x*T,py=y*T; ctx.fillStyle=col;ctx.fillRect(px+3,py+3,w*T-6,4);
  }
- ctx.fillStyle='rgba(255,255,255,0.18)';
- for(let y=4;y<=7;y++) for(let x=4;x<=7;x++) if((x+y)%2===0) ctx.fillRect(x*T+10,y*T+10,4,4);
- for(const [x,y] of [[8,4],[8,6],[3,4]]){
-   const px=x*T,py=y*T;
-   ctx.fillStyle='#4e7d46';ctx.fillRect(px+6,py+15,20,8);
+ for(const [x,y,w] of [[5,4,2],[11,4,2],[5,7,4],[13,13,2]]){
+   const px=x*T,py=y*T; ctx.fillStyle='#5b8448';ctx.fillRect(px+4,py+18,w*T-8,7);
  }
- for(const [x,y,col] of [[10,1,'#ffd36e'],[12,1,'#f48fb1'],[13,2,'#81d4fa'],[14,2,'#ffd36e']]){
-   const px=x*T,py=y*T;
-   ctx.fillStyle=col;ctx.fillRect(px+13,py+10,6,6);
+ for(const [x,y,col,w] of [[15,1,'#ffd36e',14],[16,2,'#81d4fa',12],[16,8,'#f48fb1',16],[17,9,'#ffd36e',10],[12,9,'#9ce27f',12]]){
+   const px=x*T,py=y*T; ctx.fillStyle=col;ctx.fillRect(px+10,py+9,w,5);
  }
- for(const [x,y] of [[2,11],[3,10]]){
-   const px=x*T,py=y*T;
-   ctx.fillStyle='#efe4cc';ctx.fillRect(px+9,py+13,14,8);
+ for(const [x,y] of [[2,11],[5,11],[11,11],[15,11]]){
+   const px=x*T,py=y*T;ctx.fillStyle='#efe4cc';ctx.fillRect(px+9,py+13,14,8);
    ctx.fillStyle='#7a6246';ctx.fillRect(px+11,py+21,2,5);ctx.fillRect(px+19,py+21,2,5);
-   ctx.fillStyle='#c99254';ctx.fillRect(px+13,py+10,3,5);ctx.fillRect(px+17,py+11,3,4);
+ }
+ for(const [x,y] of [[6,9],[10,8],[17,10]]){
+   const px=x*T,py=y*T;ctx.fillStyle='#4b4f58';ctx.fillRect(px+15,py+8,2,18);
+   ctx.fillStyle='#f3e2a0';ctx.fillRect(px+11,py+5,10,5);
  }
 }
 
 function drawHongKongDetails(){
  if(state.map!=='hongkong') return;
- for(const [x,y] of [[1,1],[2,1],[5,1],[10,1],[12,1],[15,2],[6,3],[9,2]]){
-   ctx.fillStyle=(x+y)%2?'#f7d56f':'#7fd3ff';
-   ctx.fillRect(x*T+11,y*T+10,4,4);
-   ctx.fillRect(x*T+18,y*T+17,3,3);
+ for(const [x,y,col,w] of [[1,1,'#ff8aa1',18],[2,2,'#81d4fa',12],[10,1,'#ffd76a',18],[13,2,'#8cf2ff',14],[15,3,'#ff8aa1',10]]){
+   const px=x*T,py=y*T;ctx.fillStyle=col;ctx.fillRect(px+8,py+8,w,5);
  }
- ctx.fillStyle='#b8c6d8';ctx.fillRect(4*T+2,4*T+18,4*T,2);ctx.fillRect(4*T+2,5*T+12,4*T,2);
+ for(const [x,y] of [[1,1],[2,1],[5,1],[10,1],[12,1],[15,2],[6,3],[9,2],[14,3],[16,2]]){
+   ctx.fillStyle=(x+y)%2?'#f7d56f':'#7fd3ff';
+   ctx.fillRect(x*T+11,y*T+10,4,4);ctx.fillRect(x*T+18,y*T+17,3,3);
+ }
+ ctx.fillStyle='#b8c6d8';ctx.fillRect(4*T+2,4*T+18,8*T,2);ctx.fillRect(4*T+2,5*T+12,8*T,2);
  ctx.fillStyle='rgba(255,255,255,0.3)';
- for(let i=0;i<4;i++) ctx.fillRect(5*T+6+i*20,4*T+10,10,2);
+ for(let i=0;i<6;i++) ctx.fillRect(5*T+6+i*20,4*T+10,10,2);
+ for(const [x,y,col,w] of [[2,6,'#d97857',2],[8,6,'#f0b65a',2]]){
+   const px=x*T,py=y*T;ctx.fillStyle=col;ctx.fillRect(px+3,py+3,w*T+26,4);
+ }
  ctx.fillStyle='rgba(255,255,255,0.18)';
- for(let i=0;i<8;i++) ctx.fillRect(2*T+12+i*18,10*T+8+(i%2)*5,12,2);
- for(const [x,y,col,w] of [[2,2,'#ff8aa1',16],[12,2,'#ffd76a',18],[14,5,'#8cf2ff',14],[2,7,'#ff8aa1',14]]){
-   const px=x*T,py=y*T;
-   ctx.fillStyle=col;ctx.fillRect(px+8,py+8,w,5);
+ for(let i=0;i<5;i++) ctx.fillRect(13*T+8+i*10,10*T+8+(i%2)*5,8,2);
+ for(const [x,y] of [[13,9],[14,10],[15,9],[16,10]]){
+   const px=x*T,py=y*T;ctx.fillStyle='#ffe8a8';ctx.fillRect(px+14,py+7,3,12);
+   ctx.fillStyle='#6b6460';ctx.fillRect(px+15,py+18,1,8);
+ }
+ for(const [x,y] of [[3,12],[6,12],[11,12]]){
+   const px=x*T,py=y*T;ctx.fillStyle='#d7c6ae';ctx.fillRect(px+9,py+14,14,8);
+   ctx.fillStyle='#7a6246';ctx.fillRect(px+10,py+22,2,4);ctx.fillRect(px+20,py+22,2,4);
  }
 }
 
@@ -1091,19 +1096,24 @@ function drawNagoyaDetails(){
  if(state.map!=='nagoya') return;
  ctx.fillStyle='rgba(255,255,255,0.18)';
  ctx.fillRect(1*T+6,9*T+22,17*T,2);
- for(const [x,y,col] of [[8,5,'#ef6c57'],[10,5,'#ffd166'],[12,5,'#67c5df']]){
-   const px=x*T,py=y*T;
-   ctx.fillStyle='#6b7d86';ctx.fillRect(px+15,py+6,2,20);
+ for(let x=2;x<18;x+=2) ctx.fillRect(x*T+10,8*T+10,4,4);
+ for(const [x,y,col] of [[8,5,'#ef6c57'],[10,5,'#ffd166'],[12,5,'#67c5df'],[14,4,'#f48fb1']]){
+   const px=x*T,py=y*T;ctx.fillStyle='#6b7d86';ctx.fillRect(px+15,py+6,2,20);
    ctx.fillStyle=col;ctx.fillRect(px+9,py+8,8,10);
  }
- for(const [x,y] of [[5,4],[6,6],[13,9],[15,9]]){
-   const px=x*T,py=y*T;
-   ctx.fillStyle='#6ca68a';ctx.fillRect(px+6,py+18,20,7);
+ for(const [x,y,w] of [[5,4,1],[6,6,1],[13,9,1],[15,9,1],[2,3,2],[14,3,2]]){
+   const px=x*T,py=y*T;ctx.fillStyle='#6ca68a';ctx.fillRect(px+6,py+18,w*T+12,7);
  }
- for(const [x,y] of [[2,2],[6,2],[14,2]]){
-   const px=x*T,py=y*T;
-   ctx.fillStyle='#ece7d8';ctx.fillRect(px+11,py+12,10,10);
+ for(const [x,y] of [[2,11],[6,11],[10,11],[14,11]]){
+   const px=x*T,py=y*T;ctx.fillStyle='#ece7d8';ctx.fillRect(px+11,py+12,10,10);
    ctx.fillStyle='#806a50';ctx.fillRect(px+10,py+22,2,4);ctx.fillRect(px+20,py+22,2,4);
+ }
+ ctx.fillStyle='rgba(255,255,255,0.35)';
+ for(const [x,y] of [[14,7],[15,8],[13,8],[16,7]]){
+   const px=x*T,py=y*T;ctx.fillRect(px+10,py+12,6,2);ctx.fillRect(px+16,py+11,3,4);
+ }
+ for(const [x,y,col] of [[2,10,'#ffd166'],[6,10,'#ef6c57'],[10,10,'#67c5df'],[14,10,'#f48fb1']]){
+   const px=x*T,py=y*T;ctx.fillStyle=col;ctx.fillRect(px+8,py+8,14,4);
  }
 }
 
@@ -1466,8 +1476,8 @@ function drawLandmarkLabels(){
    label('판교 공원 벤치',6*T,3*T+7);
  }
  if(state.map==='sinchon'){
-   label('연세대학교',4*T,1*T+7);
-   label('LP BAR',12*T,1*T+7);
+   label('연세대학교',8*T,4*T+7);
+   label('LP BAR',15*T,8*T+7);
  }
  if(state.map==='home'){
    label('주방',4*T,1*T+7);
@@ -1476,11 +1486,11 @@ function drawLandmarkLabels(){
    label('커피 코너',15*T,8*T+7);
  }
  if(state.map==='hongkong'){
-   label('딤섬',2*T,2*T+7);
-   label('에그타르트',13*T,2*T+7);
-   label('버스 정류장',14*T,5*T+7);
-   label('어쩌다 내린 동네',3*T,7*T+7);
-   label('빅토리아 하버',8*T,9*T+7);
+   label('딤섬',3*T,6*T+7);
+   label('에그타르트',9*T,6*T+7);
+   label('버스 정류장',14*T,7*T+7);
+   label('어쩌다 내린 동네',16*T,7*T+7);
+   label('빅토리아 하버',14*T,9*T+7);
  }
  if(state.map==='nagoya'){
    label('미소카츠',3*T,1*T+7);

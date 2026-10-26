@@ -206,7 +206,7 @@ const maps={
   palette:{ground:'#8ec56d', path:'#d7c58f', border:'#a38d5f'},
   tiles:[
   "####################",
-  "#t..kkkk....t.....#",
+  "#t..kkkk....t......#",
   "#...kKKk...........#",
   "#....pppppp........#",
   "#....b....b........#",
@@ -1119,31 +1119,63 @@ function drawNagoyaDetails(){
 
 function drawHomeDetails(){
  if(state.map!=='home') return;
- for(const [x,y,w] of [[9,1,2],[14,6,2],[2,6,2]]){
+ // wall frames adjusted to the lower furniture layout
+ for(const [x,y,w] of [[9,2,2],[14,6,2],[2,6,2]]){
    const px=x*T,py=y*T;
    ctx.fillStyle='#a58361';ctx.fillRect(px+8,py+8,w*T-16,16);
    ctx.fillStyle='#f3e7d4';ctx.fillRect(px+11,py+11,w*T-22,10);
  }
+ // plants
  for(const [x,y] of [[8,9],[17,7]]){
    const px=x*T,py=y*T;
    ctx.fillStyle='#9f7752';ctx.fillRect(px+12,py+19,8,6);
    ctx.fillStyle='#58814d';ctx.fillRect(px+10,py+10,12,10);
  }
+ // warm lamp glow now centered over the lowered study/dining area
  ctx.fillStyle='rgba(255,224,160,0.18)';
- ctx.beginPath();ctx.arc(13*T+16,1*T+18,44,0,Math.PI*2);ctx.fill();
+ ctx.beginPath();ctx.arc(13*T+16,4*T+14,44,0,Math.PI*2);ctx.fill();
+ // subtle floor accents to fill the lower half without blocking movement
+ ctx.fillStyle='rgba(120,90,65,0.09)';
+ ctx.fillRect(9*T,10*T+18,7*T,3);
+ ctx.fillRect(2*T,11*T+10,4*T,2);
 }
 
 function drawEndingDetails(){
  if(state.map!=='ending') return;
+ // soft aisle highlight
  ctx.fillStyle='rgba(255,255,255,0.10)';
  ctx.fillRect(8*T+8,2*T,3*T,10*T);
+
+ // warm lamps with a faint animated halo
+ const pulse=0.10+0.04*Math.sin(frame/18);
  for(const [x,y] of [[6,3],[13,3],[6,6],[13,6],[6,9],[13,9]]){
    const px=x*T,py=y*T;
    ctx.fillStyle='#cda36d';ctx.fillRect(px+14,py+10,4,16);
    ctx.fillStyle='#ffe6a6';ctx.fillRect(px+10,py+6,12,8);
+   ctx.fillStyle='rgba(255,230,166,'+pulse+')';
+   ctx.fillRect(px+6,py+3,20,15);
  }
- ctx.fillStyle='rgba(255,170,190,0.55)';
- for(const [x,y] of [[8,10],[9,11],[10,10],[11,11],[9,8],[10,7]]) ctx.fillRect(x*T+14,y*T+17,4,3);
+
+ // gently drifting petals
+ const petals=[[8,10,0],[9,11,8],[10,10,15],[11,11,23],[9,8,31],[10,7,39],[8,6,47],[11,5,55]];
+ ctx.fillStyle='rgba(255,170,190,0.62)';
+ for(const [x,y,phase] of petals){
+   const drift=Math.sin((frame+phase)/20)*5;
+   const fall=((frame+phase)%90)/30;
+   ctx.fillRect(x*T+14+drift,y*T+17+fall,4,3);
+ }
+
+ // subtle glow behind Seoyeon
+ const girl=current().npcs.find(n=>n.kind==='girl');
+ if(girl){
+   ctx.save();
+   ctx.globalAlpha=0.10+0.04*Math.sin(frame/16);
+   ctx.fillStyle='#fff0c8';
+   ctx.beginPath();
+   ctx.arc(girl.x*T+16,girl.y*T+18,30,0,Math.PI*2);
+   ctx.fill();
+   ctx.restore();
+ }
 }
 
 function drawKakao(px,py,main=false){
@@ -1493,11 +1525,12 @@ function drawLandmarkLabels(){
    label('빅토리아 하버',14*T,9*T+7);
  }
  if(state.map==='nagoya'){
-   label('미소카츠',3*T,1*T+7);
-   label('히츠마부시',8*T,1*T+7);
-   label('테바사키',13*T,1*T+7);
-   label('수족관',7*T,3*T+7);
-   label('해달 수조',12*T,6*T+7);
+   label('미소카츠',3*T,10*T+7);
+   label('히츠마부시',7*T,10*T+7);
+   label('테바사키',11*T,10*T+7);
+   label('HARBS',15*T,10*T+7);
+   label('수족관',13*T,3*T+7);
+   label('해달 수조',15*T,6*T+7);
  }
  ctx.restore();
 }

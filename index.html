@@ -231,15 +231,15 @@ const maps={
   "####################",
   "#rrrr....rrrr..llll#",
   "#rrrr....rrrr..llll#",
-  "#..................#",
-  "#......uuuu........#",
-  "#......uYYu..s.....#",
-  "#......uuuu........#",
-  "#..................#",
+  "#......uuuuuu......#",
+  "#......u....u......#",
+  "#......u.s..u......#",
+  "#......u....u......#",
+  "#......u....u......#",
+  "#......uY..uu......#",
   "#..rrrr......llll..#",
   "#..rRrr......lLLl..#",
   "#..rrrr......llll..#",
-  "#..................#",
   "#.................=#",
   "#....tt....tt......#",
   "####################"],
@@ -250,12 +250,12 @@ const maps={
   palette:{ground:'#d8c8aa', path:'#eadfc7', border:'#826f5c'},
   tiles:[
   "####################",
-  "#FSSSKK............#",
-  "#F...KK....dddddd..#",
+  "#..................#",
+  "#..................#",
+  "#FSSSKK....dddddd..#",
   "#F...KK....d....d..#",
-  "#....KK....dddddd..#",
-  "#..................#",
-  "#..................#",
+  "#F...KK....dddddd..#",
+  "#....KK............#",
   "#..bbbbbb..........#",
   "#..bbbbbb.....ccc..#",
   "#.............cCc..#",
@@ -277,7 +277,7 @@ const maps={
   "#....mmmmmmmm......#",
   "#..................#",
   "#..DD....EE........#",
-  "#..DD....EE...B.X..#",
+  "#..DD....EE...B..X.#",
   "#..................#",
   "#...........vvvvv..#",
   "#...........vVVVv.=#",
@@ -419,16 +419,16 @@ function objective(){
  if(!f.sinchonDone){
    if(state.map==='park') return {type:'warp', map:'park', x:18, y:12, label:'오른쪽 출구로 가서 신촌으로 이동'};
    if(!f.sinchonDrink) return {type:'tile', map:'sinchon', x:4, y:9, label:'주말 낮, 일단 낮술부터 시작하기'};
-   if(!f.sinchonYonsei) return {type:'tile', map:'sinchon', x:8, y:5, label:'취한 김에 연세대학교 구경하기'};
-   if(!f.sinchonStatue) return {type:'tile', map:'sinchon', x:13, y:5, label:'연세대 동상 구경하기'};
-   return {type:'tile', map:'sinchon', x:15, y:9, label:'이제 LP바 찾아가기'};
+   if(!f.sinchonYonsei) return {type:'tile', map:'sinchon', x:8, y:8, label:'연세대학교 입구 들어가 보기'};
+   if(!f.sinchonStatue) return {type:'tile', map:'sinchon', x:9, y:5, label:'연세대 안쪽 동상 구경하기'};
+   return {type:'tile', map:'sinchon', x:15, y:10, label:'이제 LP바 찾아가기'};
  }
  if(!f.hongkongDone){
    if(state.map==='sinchon') return {type:'warp', map:'sinchon', x:18, y:11, label:'오른쪽 출구로 가서 홍콩으로 이동'};
    if(!f.hkDimsum) return {type:'tile', map:'hongkong', x:3, y:7, label:'홍콩에 왔으니 딤섬부터 먹기'};
    if(!f.hkEgg) return {type:'tile', map:'hongkong', x:9, y:7, label:'에그타르트 찾으러 가기'};
    if(!f.hkBus) return {type:'tile', map:'hongkong', x:14, y:7, label:'빅토리아 하버로 가는 버스 타기'};
-   if(!f.hkWrongStop) return {type:'tile', map:'hongkong', x:16, y:7, label:'반대 방향인 걸 알아채고 내려보기'};
+   if(!f.hkWrongStop) return {type:'tile', map:'hongkong', x:17, y:7, label:'반대 방향인 걸 알아채고 내려보기'};
    return {type:'tile', map:'hongkong', x:14, y:10, label:'이번엔 제대로 빅토리아 하버 가기'};
  }
  if(!f.nagoyaDone){
@@ -441,8 +441,8 @@ function objective(){
  }
  if(!(f.homeCook&&f.homeStudy&&f.coffee)){
    if(state.map==='nagoya') return {type:'warp', map:'nagoya', x:18, y:6, label:'오른쪽 출구로 가서 집으로 이동'};
-   if(!f.homeCook) return {type:'tile', map:'home', x:5, y:2, label:'주방에서 같이 저녁 만들기'};
-   if(!f.homeStudy) return {type:'tile', map:'home', x:12, y:2, label:'큰 테이블에서 같이 공부하기'};
+   if(!f.homeCook) return {type:'tile', map:'home', x:5, y:4, label:'주방에서 같이 저녁 만들기'};
+   if(!f.homeStudy) return {type:'tile', map:'home', x:12, y:4, label:'큰 테이블에서 같이 공부하기'};
    return {type:'tile', map:'home', x:15, y:9, label:'커피 코너에서 커피 내리기'};
  }
  if(state.map==='home') return {type:'warp', map:'home', x:18, y:12, label:'오른쪽 출구로 가서 마지막 장소로 이동'};
@@ -1476,12 +1476,12 @@ function drawLandmarkLabels(){
    label('판교 공원 벤치',6*T,3*T+7);
  }
  if(state.map==='sinchon'){
-   label('연세대학교',8*T,4*T+7);
-   label('LP BAR',15*T,8*T+7);
+   label('연세대학교',9*T,3*T+7);
+   label('LP BAR',15*T,9*T+7);
  }
  if(state.map==='home'){
-   label('주방',4*T,1*T+7);
-   label('큰 테이블 · 노트북 2대',12*T,2*T+7);
+   label('주방',4*T,3*T+7);
+   label('큰 테이블 · 노트북 2대',12*T,3*T+7);
    label('거실',4*T,7*T+7);
    label('커피 코너',15*T,8*T+7);
  }
@@ -1489,7 +1489,7 @@ function drawLandmarkLabels(){
    label('딤섬',3*T,6*T+7);
    label('에그타르트',9*T,6*T+7);
    label('버스 정류장',14*T,7*T+7);
-   label('어쩌다 내린 동네',16*T,7*T+7);
+   label('어쩌다 내린 동네',17*T,7*T+7);
    label('빅토리아 하버',14*T,9*T+7);
  }
  if(state.map==='nagoya'){
